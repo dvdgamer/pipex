@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       ::::::::             */
-/*   main.c                                            :+:    :+:             */
+/*   file_handlers.c                                   :+:    :+:             */
 /*                                                    +:+                     */
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
-/*   Created: 2025/07/11 13:58:49 by dponte       #+#    #+#                  */
-/*   Updated: 2025/09/02 00:05:51 by dponte       ########   odam.nl          */
+/*   Created: 2025/09/01 23:56:55 by dponte       #+#    #+#                  */
+/*   Updated: 2025/09/02 00:01:21 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
 
-int	main(int argc,char *argv[])
+void	open_file(char* file)
 {
-	int	pipefd[2];
-	char *cmd1;
-	char *cmd2;
-	char *file1;
-	char *file2;
+	int	fd;
 
-	/* first step -> process commands */
-	file1 = argv[1];
-	file2 = argv[4];
-	cmd1 = argv[2];
-	cmd2 = argv[3];
-	/* open file1 */
-	open_file(file1);
-	/* pipe it into file2 */
-	return (0);
+	fd = open(file, O_RDONLY);
+	printf("%u\n", fd);
 }
-
-/* second step -> replicate > and < commands */
-/* 3rd step -> run commands */
