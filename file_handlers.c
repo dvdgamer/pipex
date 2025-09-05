@@ -13,10 +13,11 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-void	open_file(char* file)
+int	open_file(char* file)
 {
 	int	fd;
 
 	fd = open(file, O_RDONLY);
 	printf("%u\n", fd);
+	return (fd);
 }

@@ -11,24 +11,33 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 int	main(int argc,char *argv[])
 {
-	int	pipefd[2];
 	char *cmd1;
 	char *cmd2;
 	char *file1;
 	char *file2;
+	int fd;
+	int	pipefd[2];
 
-	/* first step -> process commands */
+	/* 1 -> process commands */
 	file1 = argv[1];
 	file2 = argv[4];
 	cmd1 = argv[2];
 	cmd2 = argv[3];
+
+	/* open pipe */
+	if (pipe(pipefd) < 0)
+		exit(1);
 	/* open file1 */
-	open_file(file1);
+	fd = open_file(file1);
 	/* pipe it into file2 */
+
+	/* close pipe */
+	close(fd);
 	return (0);
 }
 
