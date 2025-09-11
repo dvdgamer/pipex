@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-int	main(int argc,char *argv[])
+// Need to get the env variables by splitting $PATH through :
+int	main(int argc,char *argv[], char *env[])
 {
 	char *cmd1;
 	char *cmd2;
@@ -33,6 +35,7 @@ int	main(int argc,char *argv[])
 	if (pipe(pipefd) < 0)
 		exit(1);
 	/* open file1 */
+	printf("pipe opened\n");
 	fd = open_file(file1);
 	/* pipe it into file2 */
 

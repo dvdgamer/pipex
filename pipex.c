@@ -34,3 +34,24 @@
 //LIMITER is the here document or 'heredoc'
 //
 //cmd << LIMITER | cmd1 >> file
+//
+
+#include <unistd.h>
+int main (int argc, char *argv[], char *env[])
+{
+	int i = 1;
+
+	//fork process
+	int pid = fork();
+	if (pid == 0)
+		//callchildfunction(i);
+	else if (pid == -1)
+		error();
+	else
+		parentfunc(pid);
+
+	wait()
+	waitpid()
+	accessexit();
+
+}
