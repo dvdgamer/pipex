@@ -36,22 +36,66 @@
 //cmd << LIMITER | cmd1 >> file
 //
 
+#include <stdio.h>
+#include <string.h>
 #include <unistd.h>
+#include <error.h>
+#include "pipex.h"
+#include "libft/libft.h"
+
+/*
+ * Gets the env varabiables
+ * Trims the first env_var to remove the "PATH ="
+ */
+char **extract_env(char *env[])
+{
+	int i;
+	int j;
+	char *env_var;
+	char **env_paths;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		env_var = ft_substr(env[i], 0, 4);
+		if (strcmp(env_var, "PATH") == 0)
+		{
+			env_paths = ft_split(env[i], ':');
+			env_paths[0] = ft_substr(env_paths[0], 5, ft_strlen(env_paths[0]));
+			free(env_var);
+			return (env_paths);
+		}
+		free(env_var);
+		i++;
+	}
+	return NULL;
+}
+
 int main (int argc, char *argv[], char *env[])
 {
-	int i = 1;
-
-	//fork process
+	int i = 0;
+	// pid is the id of the child process
 	int pid = fork();
+	char **env_list = extract_env(env);
+
+	for (i = 0; env_list[i]; i++)
+	{
+		printf("Split[%d]:%s\n", i, env_list[i]);
+	}
+	/* for (i = 0; env_list[i]; i++) */
+	/* 	free(env_list[i]); */
+	/* free(env_list); */
 	if (pid == 0)
 		//callchildfunction(i);
+		printf("hello from child process %d\n", pid);
 	else if (pid == -1)
-		error();
+		/* error(); */
+		printf("error\n");
 	else
-		parentfunc(pid);
+		/* parentfunc(pid); */
+		printf("hello from parent process %d\n", pid);
+	/* wait(); */
+	/* waitpid(); */
+	/* accessexit(); */
+};
 
-	wait()
-	waitpid()
-	accessexit();
-
-}

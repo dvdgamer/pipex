@@ -10,4 +10,8 @@
 //                                                                            //
 // ************************************************************************** //
 
-int	open_file(char* file);
+#include <sys/types.h>
+#include "libft/libft.h"
+#include <stdlib.h>
+
+int		open_file(char* file);
