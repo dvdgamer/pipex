@@ -36,17 +36,10 @@
 //cmd << LIMITER | cmd1 >> file
 //
 
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <error.h>
 #include "pipex.h"
-#include "libft/libft.h"
 
-/*
- * Gets the env varabiables
- * Trims the first env_var to remove the "PATH ="
- */
+ // Gets the env varabiables
+ //* Trims the first env_var to remove the "PATH ="
 char **extract_env(char *env[])
 {
 	int i;
@@ -58,6 +51,7 @@ char **extract_env(char *env[])
 	while (env[i] != NULL)
 	{
 		env_var = ft_substr(env[i], 0, 4);
+		// replace this function
 		if (strcmp(env_var, "PATH") == 0)
 		{
 			env_paths = ft_split(env[i], ':');
@@ -76,26 +70,37 @@ int main (int argc, char *argv[], char *env[])
 	int i = 0;
 	// pid is the id of the child process
 	int pid = fork();
+	// will need free
 	char **env_list = extract_env(env);
 
-	for (i = 0; env_list[i]; i++)
-	{
-		printf("Split[%d]:%s\n", i, env_list[i]);
-	}
-	/* for (i = 0; env_list[i]; i++) */
-	/* 	free(env_list[i]); */
-	/* free(env_list); */
+	//TODO: check if argc < 5 || if there's an empty string
+	//TODO: access last item of argv and check if it exists (with F_OK)
+		// if not unlink... but why?
+	//TODO: If in or oufile don't execute the commands linked to them won't execute
+			/* sleep 5 < test */
+			/* bash: test: Permission denied */
+			/* sleep 5 < test | sleep 3 */
+			/* *sleeps for 3 secs* */
+			/* bash: test: Permission denied */
 	if (pid == 0)
-		//callchildfunction(i);
+	{
+		//callchildfunction(i);i = 0;
+
 		printf("hello from child process %d\n", pid);
+		exit(0);
+	}
 	else if (pid == -1)
 		/* error(); */
 		printf("error\n");
 	else
+	{
 		/* parentfunc(pid); */
+		/* wait(); */
+		waitpid(pid, NULL, 0);
 		printf("hello from parent process %d\n", pid);
-	/* wait(); */
-	/* waitpid(); */
-	/* accessexit(); */
+		/* waitpid(); */
+		/* accessexit(); */
+	}
+	
 };
 
