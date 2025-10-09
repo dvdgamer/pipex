@@ -89,7 +89,6 @@ char **extract_env(char *env[])
 
 int main (int argc, char *argv[], char *env[])
 {
-	int i = 0;
 	char *infile;
 	char *outfile;
 	char **paths = extract_env(env); // will need free
@@ -109,7 +108,7 @@ int main (int argc, char *argv[], char *env[])
 	{
 		//callchildfunction(i);
 		//Start all the forking and piping
-		create_pipe(argv, paths);
+		create_pipe(argv, paths, env);
 		printf("hello from child process %d\n", pid);
 		exit(0);
 	}

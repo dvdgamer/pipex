@@ -21,4 +21,4 @@
 #include "libft/libft.h"
 
 int		open_file(char* file);
-void	create_pipe(char **argv, char **paths);
+void	create_pipe(char **argv, char **paths, char **env);
