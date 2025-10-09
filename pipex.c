@@ -6,7 +6,7 @@
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2025/07/09 16:03:22 by dponte       #+#    #+#                  */
-/*   Updated: 2025/07/09 16:16:54 by dponte       ########   odam.nl          */
+/*   Updated: 2025/10/08 16:39:30 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // This reads the file via stdin instead of dirctly opening the file
 
 // pipe |
-// directs the output on the left of operator to stdin to the right
+// directs the output (stdout) on the left of operator to stdin to the right
 
 // > output redirection
 // points the stdout into the designated file
@@ -35,22 +35,37 @@
 //
 //cmd << LIMITER | cmd1 >> file
 //
+//NOTE: If in or outfiles aren't valid they don't execute the command
+/* sleep 5 < test */
+/* bash: test: Permission denied */
+/* sleep 5 < test | sleep 3 */
+/* *sleeps for 3 secs* */
+/* bash: test: Permission denied */
 
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <error.h>
 #include "pipex.h"
-#include "libft/libft.h"
+#include <fcntl.h>
+#include <unistd.h>
 
-/*
- * Gets the env varabiables
- * Trims the first env_var to remove the "PATH ="
- */
+bool	empty_str_in_argv(char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i] != NULL)
+	{
+		if (argv[i][0] == '\0')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+// Gets the env varabiables
+//* Trims the first env_var to remove the "PATH ="
 char **extract_env(char *env[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 	char *env_var;
 	char **env_paths;
 
@@ -58,6 +73,7 @@ char **extract_env(char *env[])
 	while (env[i] != NULL)
 	{
 		env_var = ft_substr(env[i], 0, 4);
+		// replace this function
 		if (strcmp(env_var, "PATH") == 0)
 		{
 			env_paths = ft_split(env[i], ':');
@@ -74,28 +90,41 @@ char **extract_env(char *env[])
 int main (int argc, char *argv[], char *env[])
 {
 	int i = 0;
-	// pid is the id of the child process
-	int pid = fork();
-	char **env_list = extract_env(env);
+	char *infile;
+	char *outfile;
+	char **paths = extract_env(env); // will need free
+	pid_t pid = fork(); // pid is the id of the child process
 
-	for (i = 0; env_list[i]; i++)
-	{
-		printf("Split[%d]:%s\n", i, env_list[i]);
+	if (argc < 4 || empty_str_in_argv(argv)) {
+		printf("No empty strings\n");
+		return (0);
 	}
-	/* for (i = 0; env_list[i]; i++) */
-	/* 	free(env_list[i]); */
-	/* free(env_list); */
+	infile = argv[1];
+	outfile = argv[argc - 1];
+
+	if (access(outfile, F_OK) == -1)
+		unlink(outfile);
+
 	if (pid == 0)
+	{
 		//callchildfunction(i);
+		//Start all the forking and piping
+		create_pipe(argv, paths);
 		printf("hello from child process %d\n", pid);
+		exit(0);
+	}
 	else if (pid == -1)
 		/* error(); */
 		printf("error\n");
 	else
+	{
 		/* parentfunc(pid); */
+		/* wait(); */
+		waitpid(pid, NULL, 0);
 		printf("hello from parent process %d\n", pid);
-	/* wait(); */
-	/* waitpid(); */
-	/* accessexit(); */
+		/* waitpid();  // this will wait for all the child processes */
+		/* accessexit(); */
+	}
+	return (0);
 };
 

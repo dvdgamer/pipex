@@ -10,8 +10,15 @@
 //                                                                            //
 // ************************************************************************** //
 
-#include <sys/types.h>
-#include "libft/libft.h"
+#include <stdio.h>
+#include <error.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <stdbool.h>
+#include "libft/libft.h"
 
 int		open_file(char* file);
+void	create_pipe(char **argv, char **paths);
