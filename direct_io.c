@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
 /* 
 * Gets the env varabiables
@@ -42,41 +41,3 @@ char **extract_env(char *env[])
 	return NULL;
 }
 
-//TODO: Handle errors
-void	execute_cmd(char **paths, char *cmd, char **env)
-{
-	int		i;
-	char	*path_to_exec;
-
-	i = 0;
-	if (paths == NULL)
-		printf("error");
-	cmd = ft_strjoin("/", cmd);
-
-	while(paths[i])
-	{
-		path_to_exec = ft_strjoin(paths[i], cmd);
-		printf("path_to_exec: %s\n", path_to_exec);
-		if (path_to_exec == NULL)
-			printf("error");
-		if (access(path_to_exec, F_OK) == 0)
-		{
-			printf("access === 0\n");
-			// check return
-			if (execve(path_to_exec, &cmd, env) != -1)
-				perror("error execve");
-			else
-			{
-				
-			}
-		}
-		else
-			free (path_to_exec);
-		i++;
-	}
-}
-
-
-//Need to define infile as stdin of the command
-//Dup2 the result as stdin for the next function
-// If it can't find a path it'll look for it in the current directory

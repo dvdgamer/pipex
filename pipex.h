@@ -22,3 +22,4 @@
 
 int		open_file(char* file);
 void	create_pipe(char **argv, char **env);
+char	**extract_env(char *env[]);
