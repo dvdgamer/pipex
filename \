@@ -45,6 +45,7 @@
 #include "pipex.h"
 #include "libft/libft.h"
 #include <fcntl.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 bool	empty_str_in_argv(char **argv)
@@ -61,29 +62,27 @@ bool	empty_str_in_argv(char **argv)
 	return (false);
 }
 
-//TODO: Handle errors
 int		execute_cmd(char *paths[], char *arg_cmd, char **env)
 {
 	int		i;
 	int		ret;
+	char	*command;
 	char	*path_to_exec;
 	char	**cmd_and_flags;
 
 	i = 0;
 	if (paths == NULL)
 		printf("error");
-	cmd_and_flags = ft_split(arg_cmd, ' ');
+	cmd_and_flags = ft_split(arg_cmd, ' ')	;
+	command = ft_strjoin("/", cmd_and_flags[0]);
 
-	while(paths[i])
+	while(paths[i] != NULL)
 	{
-		path_to_exec = ft_strjoin(paths[i], cmd_and_flags[0]);
-		printf("path_to_exec: %s\n", path_to_exec);
+		path_to_exec = ft_strjoin(paths[i], command);
 		if (path_to_exec == NULL)
 			printf("error");
 		if (access(path_to_exec, F_OK) == 0)
 		{
-			printf("access === 0\n");
-			// check return
 			ret = execve(path_to_exec, cmd_and_flags, env);
 			if (ret == -1)
 				perror("error execve");
@@ -92,6 +91,7 @@ int		execute_cmd(char *paths[], char *arg_cmd, char **env)
 			free (path_to_exec);
 		i++;
 	}
+	free (command);
 	free (cmd_and_flags);
 	return (ret);
 }
@@ -130,6 +130,10 @@ int main (int argc, char *argv[], char *env[])
 		{
 			pipe(pipefd1);
 			printf("pipefd1[0]: %d\n", pipefd1[0]);
+			// read end of the file is read from the file
+			pipefd1[1] = open(infile, O_RDONLY);
+			wait(&pipefd1[1]);
+			printf("pipefd1[1]: %d\n", pipefd1[1]);
 			//callchildfunction(i);
 			// close read end
 			execute_cmd(paths, argv[2], env);

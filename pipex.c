@@ -45,6 +45,7 @@
 #include "pipex.h"
 #include "libft/libft.h"
 #include <fcntl.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 bool	empty_str_in_argv(char **argv)
@@ -123,23 +124,27 @@ int main (int argc, char *argv[], char *env[])
 	maxchildren = argc - 3;
 	while (i <= maxchildren)
 	{
+		pipe(pipefd1);
+		pipe(pipefd2);
 		pid = fork(); // pid is the id of the child process
 		// pid gets overwritten by every child (always 0)
 		if (pid == 0 && i == 0)
 		{
-			pipe(pipefd1);
+			pipefd1[0] = -1;
+			// read end of the file is read from the file
+			read(pipefd1[1], infile, sizeof(infile));
+			printf("infile: %ld\n", sizeof(infile));
 			printf("pipefd1[0]: %d\n", pipefd1[0]);
+			printf("pipefd1[1]: %d\n", pipefd1[1]);
 			//callchildfunction(i);
 			// close read end
 			execute_cmd(paths, argv[2], env);
 			// error handling
-			exit(0);
+			/* exit(0); */
 		}
 		else if (pid == 0 && i < maxchildren - 1) // middle children
 		{
 			//callchildfunction(i);
-			pipe(pipefd1);
-			pipe(pipefd2);
 			// handle pipe1 and pipe2
 			printf("pipefd1[0]: %d\n", pipefd1[0]);
 			printf("pipefd2[1]: %d\n", pipefd2[1]);
