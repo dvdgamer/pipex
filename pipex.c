@@ -60,39 +60,37 @@ bool	empty_str_in_argv(char **argv)
 	return (false);
 }
 
-// Gets the env varabiables
-//* Trims the first env_var to remove the "PATH ="
-char **extract_env(char *env[])
-{
-	int	i;
-	int	j;
-	char *env_var;
-	char **env_paths;
 
-	i = 0;
-	while (env[i] != NULL)
+void	create_pipe(char **argv, char **env)
+{
+	int		i;
+	int		pipefd[2];
+	char	*cmd;
+	char	**paths; // will need free
+
+	paths = extract_env(env);
+	// Create pipe
+
+	i = 2; //start at the first argument
+	printf("0: %d\n", pipefd[0]);
+	printf("1: %d\n", pipefd[1]);
+	while (argv[i] != NULL)
 	{
-		env_var = ft_substr(env[i], 0, 4);
-		// replace this function
-		if (strcmp(env_var, "PATH") == 0)
-		{
-			env_paths = ft_split(env[i], ':');
-			env_paths[0] = ft_substr(env_paths[0], 5, ft_strlen(env_paths[0]));
-			free(env_var);
-			return (env_paths);
-		}
-		free(env_var);
+		printf("argv[i]: %s\n", argv[i]);
+		execute_cmd(paths, argv[i], env);
 		i++;
 	}
-	return NULL;
 }
 
 int main (int argc, char *argv[], char *env[])
 {
-	char *infile;
-	char *outfile;
-	char **paths = extract_env(env); // will need free
-	pid_t pid = fork(); // pid is the id of the child process
+	int		i;
+	int		maxchildren;
+	int		pipefd1[2];
+	int		pipefd2[2];
+	char	*infile;
+	char	*outfile;
+	pid_t	pid;
 
 	if (argc < 4 || empty_str_in_argv(argv)) {
 		printf("No empty strings\n");
@@ -104,26 +102,44 @@ int main (int argc, char *argv[], char *env[])
 	if (access(outfile, F_OK) == -1)
 		unlink(outfile);
 
-	if (pid == 0)
+	i = 0;
+	// Create children
+	while (i < maxchildren)
 	{
-		//callchildfunction(i);
-		//Start all the forking and piping
-		create_pipe(argv, paths, env);
-		printf("hello from child process %d\n", pid);
-		exit(0);
-	}
-	else if (pid == -1)
-		/* error(); */
-		printf("error\n");
-	else
-	{
-		/* parentfunc(pid); */
-		/* wait(); */
-		waitpid(pid, NULL, 0);
-		printf("hello from parent process %d\n", pid);
+		pid = fork(); // pid is the id of the child process
 		/* waitpid();  // this will wait for all the child processes */
 		/* accessexit(); */
+		if (pid == 0 && i == 0)
+		{
+			pipe(pipefd1);
+			//callchildfunction(i);
+			// close read end
+			execute_cmd();
+			// error handling
+			exit(0);
+		}
+		else if (pid == 0 && i < maxchildren - 1) // middle children
+		{
+			//callchildfunction(i);
+			// handle pipe1 and pipe2
+			// close read end
+			execute_cmd();
+			exit(0 + i);
+		}
+		else if (pid == 0 && i == maxchildren) // last child
+		{
+			// no pipe
+			// Take write end of the pipe and output into outfile
+			// exec command
+			exit(100);
+		}
+		else if (pid == -1)
+			/* error(); */
+			printf("error\n");
 	}
-	return (0);
+
+	wait(0);
+	waitpid(pid, NULL, 0);
+
 };
 
