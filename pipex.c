@@ -45,6 +45,7 @@
 #include "pipex.h"
 #include "libft/libft.h"
 #include <fcntl.h>
+#include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -119,34 +120,41 @@ int main (int argc, char *argv[], char *env[])
 	if (access(outfile, F_OK) == -1)
 		unlink(outfile);
 
-	// Create children
 	i = 0;
 	maxchildren = argc - 3;
+	pipe(pipefd1);
+	pipe(pipefd2);
+	pid = fork();
+	printf("pid: %d\n", pid);
+	if (pid < 0) {
+		fprintf(stderr, "fork Failed  ");
+		return (1);
+	}
+	printf("maxchildren: %d\n", maxchildren);
 	while (i <= maxchildren)
 	{
-		pipe(pipefd1);
-		pipe(pipefd2);
-		pid = fork(); // pid is the id of the child process
-		// pid gets overwritten by every child (always 0)
-		if (pid == 0 && i == 0)
+		printf("i: %d\n", i);
+
+		/* printf("pid: %d\n", pid); */
+		if (access(infile, R_OK) == -1)
+			printf("error smeerpijp");
+		if (pid && i == 0) // First child
 		{
-			pipefd1[0] = -1;
+			pipefd1[0] = -1; //read end
 			// read end of the file is read from the file
-			read(pipefd1[1], infile, sizeof(infile));
-			printf("infile: %ld\n", sizeof(infile));
-			printf("pipefd1[0]: %d\n", pipefd1[0]);
-			printf("pipefd1[1]: %d\n", pipefd1[1]);
-			//callchildfunction(i);
+			pipefd1[1] = open(infile, O_RDONLY);
+			printf("open happened\n");
+			sleep(2);
 			// close read end
-			execute_cmd(paths, argv[2], env);
 			// error handling
-			/* exit(0); */
 		}
-		else if (pid == 0 && i < maxchildren - 1) // middle children
+		else if (pid == 0 && i < maxchildren) // middle children
 		{
 			//callchildfunction(i);
+			wait(0);
 			// handle pipe1 and pipe2
 			printf("pipefd1[0]: %d\n", pipefd1[0]);
+			// read from pipefd1
 			printf("pipefd2[1]: %d\n", pipefd2[1]);
 			// close read end
 			execute_cmd(paths, argv[2 + i], env);
@@ -154,18 +162,23 @@ int main (int argc, char *argv[], char *env[])
 		}
 		else if (pid == 0 && i == maxchildren) // last child
 		{
+			wait(0);
+			printf("last child\n");
 			// no pipe
 			// Take write end of the pipe and output into outfile
 			// exec command
 			exit(100);
 		}
 		else if (pid == -1)
-			/* error(); */
 			printf("error\n");
 		i++;
 	}
-	wait(0);
-	waitpid(pid, NULL, 0);
-	return (0);
+	if (pid > 0) 
+	{
+		wait(NULL);
+		printf("back to parent\n");
+		waitpid(pid, NULL, 0);
+		return (0);
+	}
 };
 
