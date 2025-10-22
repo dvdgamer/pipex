@@ -101,19 +101,21 @@ int main (int argc, char *argv[], char *env[])
 {
 	int		i;
 	int		maxchildren;
+	int		infile_fd;
 	int		pipefd1[2];
 	int		pipefd2[2];
+	ssize_t	bytes_read;
 	char	*infile;
 	char	*outfile;
 	char	**paths; // will need free
+	char	buffer[1024];
 	pid_t	pid;
 
 	paths = extract_env(env);
 
 	if (argc < 4 || empty_str_in_argv(argv)) {
 		printf("No empty strings\n");
-		return (0);
-	}
+		return (0); }
 	infile = argv[1];
 	outfile = argv[argc - 1];
 
@@ -124,40 +126,47 @@ int main (int argc, char *argv[], char *env[])
 	maxchildren = argc - 3;
 	pipe(pipefd1);
 	pipe(pipefd2);
-	pid = fork();
-	printf("pid: %d\n", pid);
 	if (pid < 0) {
 		fprintf(stderr, "fork Failed  ");
 		return (1);
 	}
+
 	printf("maxchildren: %d\n", maxchildren);
 	while (i <= maxchildren)
 	{
-		printf("i: %d\n", i);
+		pid = fork();
 
 		/* printf("pid: %d\n", pid); */
 		if (access(infile, R_OK) == -1)
 			printf("error smeerpijp");
-		if (pid && i == 0) // First child
+		if (pid == 0 && i == 0) // First child
 		{
-			pipefd1[0] = -1; //read end
-			// read end of the file is read from the file
-			pipefd1[1] = open(infile, O_RDONLY);
-			printf("open happened\n");
-			sleep(2);
-			// close read end
-			// error handling
+			printf("first child \n");
+			// write end of the pipe is read from infile
+			infile_fd = open(infile, O_RDONLY);
+			if (infile_fd == -1)
+			{
+				perror("Error opening infile");
+				exit(EXIT_FAILURE);
+			}
+			dup2(infile_fd, STDIN_FILENO);
+			dup2(pipefd1[1], STDOUT_FILENO);
+			exit(EXIT_SUCCESS);
 		}
-		else if (pid == 0 && i < maxchildren) // middle children
+		else if (pid == 0 && i > 0 && i < maxchildren) // middle children
 		{
 			//callchildfunction(i);
 			wait(0);
 			// handle pipe1 and pipe2
 			printf("pipefd1[0]: %d\n", pipefd1[0]);
+			write(pipefd1[1], buffer, 20);
+			printf("buffer: %s\n", buffer);
 			// read from pipefd1
 			printf("pipefd2[1]: %d\n", pipefd2[1]);
 			// close read end
-			execute_cmd(paths, argv[2 + i], env);
+			printf("executing i: %d\n", i);
+			pipefd2[1] = execute_cmd(paths, argv[2 + i], env);
+			printf("will exit\n");
 			exit(0 + i);
 		}
 		else if (pid == 0 && i == maxchildren) // last child
