@@ -43,7 +43,6 @@
 /* bash: test: Permission denied */
 
 #include "pipex.h"
-#include "libft/libft.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -124,7 +123,7 @@ int main (int argc, char *argv[], char *env[])
 		unlink(outfile);
 
 	i = 0;
-	maxchildren = argc - 3;
+	maxchildren = argc - 2;
 	pipe(pipefd2);
 	pipe(pipefd1);
 
@@ -137,41 +136,43 @@ int main (int argc, char *argv[], char *env[])
 		}
 
 		if (pid == -1)
-			return (printf("error"), 1); //Actual error handling
+			return (printf("error"), 1); //TODO: Actual error handling
 		if (access(infile, R_OK) == -1)
-			printf("error smeerpijp");
+			printf("error smeerpijp"); // TODO: Free everyting
+
 		if (pid == 0 && i == 0) // First child
 		{
 			close(pipefd1[0]);
-			printf("first child \n");
-			// write end of the pipe is read from infile
 			infile_fd = open(infile, O_RDONLY);
-			if (infile_fd == -1)
+			if ((pipefd1[1] = -1))
 			{
 				perror("Error opening infile");
 				exit(EXIT_FAILURE);
 			}
-			dup2(infile_fd, STDIN_FILENO);
+			printf("first child \n");
+			dup2(infile_fd, pipefd1[1]);
 			dup2(pipefd1[1], STDOUT_FILENO);
 			close(pipefd1[1]);
-			close(infile_fd);
+			// write end of the pipe is read from infile
+			write(1, "hello", 20);
 			exit(EXIT_SUCCESS);
 		}
 		else if (pid == 0 && i > 0 && i < maxchildren) // Middle children
 		{
+			close(pipefd1[1]);
+			dup2(pipefd1[0], STDIN_FILENO);
+			close(pipefd1[0]);
 			printf("middle child \n");
-			// read from pipefd1
-			// close read end
-			printf("executing i: %d\n", i);
+			read(pipefd1[0], buffer, 20);
+			printf("buffer: %s\n", buffer);
 			execute_cmd(paths, argv[2 + i], env);
-			printf("will exit\n");
-			exit(0 + i);
+			perror("execve");
+			exit(EXIT_FAILURE);
 		}
 		else if (pid == 0 && i == maxchildren) // Last child
 		{
 			wait(0);
 			printf("last child\n");
-			// no pipe
 			// Take write end of the pipe and output into outfile
 			int outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY);
 			// exec command
