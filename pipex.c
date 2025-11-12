@@ -102,8 +102,10 @@ int main (int argc, char *argv[], char *env[])
 	int		i;
 	int		maxchildren;
 	int		infile_fd;
+	int		outfile_fd;
 	int		pipefd1[2];
 	int		pipefd2[2];
+	int		lastchildfd[2];
 	ssize_t	bytes_read;
 	char	*infile;
 	char	*outfile;
@@ -123,9 +125,10 @@ int main (int argc, char *argv[], char *env[])
 		unlink(outfile);
 
 	i = 0;
-	maxchildren = argc - 3;
-	pipe(pipefd2);
+	maxchildren = argc - 4;
+	/* pipe(pipefd2); */
 	pipe(pipefd1);
+	pipe(pipefd2);
 
 	printf("maxchilldren: %d\n", maxchildren);
 	while (i <= maxchildren)
@@ -139,7 +142,7 @@ int main (int argc, char *argv[], char *env[])
 		if (pid == -1)
 			return (printf("error"), 1); //TODO: Actual error handling
 		if (access(infile, R_OK) == -1)
-			printf("error smeerpijp"); // TODO: Free everyting
+			perror("smeerpijp, infile failed"); // TODO: Free everyting
 
 		if (pid == 0 && i == 0) // First child
 		{
@@ -154,37 +157,66 @@ int main (int argc, char *argv[], char *env[])
 			perror("execve");
 			exit(EXIT_FAILURE);
 		}
+		else if (pid == 0 && i == maxchildren) // Last child
+		{
+			printf("last child\n");
+			close(pipefd2[1]);
+			close(pipefd1[1]);
+			if (i % 2 == 0)
+				dup2(pipefd2[0], STDIN_FILENO);
+			else
+				dup2(pipefd1[0], STDIN_FILENO);
+			outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY);
+			dup2(outfile_fd, STDOUT_FILENO);
+			close(pipefd2[0]);
+			close(pipefd1[0]);
+			close(outfile_fd);
+			execute_cmd(paths, argv[2 + i], env);
+		}
 		else if (pid == 0 && i > 0 && i < maxchildren) // Middle children
 		{
-			// check if it's the second to last child
-			// 	if so put it in the pipe that will write to last child
-			close(pipefd1[1]);
-			printf("middle child \n");
-			dup2(pipefd1[0], STDIN_FILENO);
-			close(pipefd1[0]);
+			printf("middle child \n"); // Alternate pipes
+			if (i % 2 != 0)
+			{
+				close(pipefd1[1]);
+				close(pipefd2[0]);
+				dup2(pipefd1[0], STDIN_FILENO);
+				dup2(pipefd2[1], STDOUT_FILENO);
+				close(pipefd1[0]);
+				close(pipefd2[1]);
+			}
+			if (i % 2 == 0)
+			{
+				close(pipefd2[1]);
+				close(pipefd1[0]);
+				dup2(pipefd2[0], STDIN_FILENO);
+				dup2(pipefd1[1], STDOUT_FILENO);
+				close(pipefd1[1]);
+				close(pipefd2[0]);
+			}
 			execute_cmd(paths, argv[2 + i], env);
 			perror("execve");
 			exit(EXIT_FAILURE);
 		}
-		else if (pid == 0 && i == maxchildren) // Last child
-		{
-			printf("last child\n");
-			// Take write end of the pipe and output into outfile
-			int outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY);
-			// write to outfile
-			/* write(outfile_fd,  ); */
-			exit(100);
-		}
 		else if (pid == -1)
-			printf("error\n");
+			perror("pid:");
+		else if (pid > 0)
+		{
+		printf("back to parent\n");
+		if (i % 2 == 0)
+			close(pipefd1[1]);
+		else if (i % 2 != 0)
+			close(pipefd2[1]);
+	}
 		i++;
 	}
-	if (pid > 0)
+	maxchildren += 1;
+	while (maxchildren > 0)
 	{
 		wait(NULL);
-		printf("back to parent\n");
-		waitpid(pid, NULL, 0);
-		return (0);
+		maxchildren--;
 	}
+	/* waitpid(pid, NULL, 0); */
+	return (0);
 };
 
