@@ -6,7 +6,7 @@
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2025/10/08 13:17:15 by dponte       #+#    #+#                  */
-/*   Updated: 2025/10/08 13:18:10 by dponte       ########   odam.nl          */
+/*   Updated: 2025/11/12 16:14:23 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 // Find the PATH entry in the environment and split it into an array of
 // directories. Returns NULL if PATH is not found.
-char **extract_env(char *env[])
+char	**extract_env(char *env[])
 {
-	int i;
+	int	i;
 
 	if (env == NULL)
 		return (NULL);

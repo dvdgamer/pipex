@@ -6,7 +6,7 @@
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2025/07/09 16:03:22 by dponte       #+#    #+#                  */
-/*   Updated: 2025/10/08 16:39:30 by dponte       ########   odam.nl          */
+/*   Updated: 2025/11/12 16:10:59 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	empty_str_in_argv(char **argv)
 	return (false);
 }
 
-int		execute_cmd(char *paths[], char *arg_cmd, char **env)
+int	execute_cmd(char *paths[], char *arg_cmd, char **env)
 {
 	int		i;
 	int		ret;
@@ -216,6 +216,10 @@ int main (int argc, char *argv[], char *env[])
 		wait(NULL);
 		maxchildren--;
 	}
+	if (pipefd1[0] != -1)
+		close(pipefd1[0]);
+	if (pipefd2[0] != -1)
+		close(pipefd2[0]);
 	/* waitpid(pid, NULL, 0); */
 	return (0);
 };
