@@ -6,7 +6,7 @@
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2025/10/08 13:17:15 by dponte       #+#    #+#                  */
-/*   Updated: 2025/11/12 16:14:23 by dponte       ########   odam.nl          */
+/*   Updated: 2025/11/12 16:20:30 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,18 @@ char	**extract_env(char *env[])
 		i++;
 	}
 	return (NULL);
+}
+
+bool	empty_str_in_argv(char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i] != NULL)
+	{
+		if (argv[i][0] == '\0')
+			return (true);
+		i++;
+	}
+	return (false);
 }

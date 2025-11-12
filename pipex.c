@@ -6,7 +6,7 @@
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2025/07/09 16:03:22 by dponte       #+#    #+#                  */
-/*   Updated: 2025/11/12 16:10:59 by dponte       ########   odam.nl          */
+/*   Updated: 2025/11/12 16:49:40 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,59 +43,6 @@
 /* bash: test: Permission denied */
 
 #include "pipex.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-bool	empty_str_in_argv(char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (argv[i] != NULL)
-	{
-		if (argv[i][0] == '\0')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-int	execute_cmd(char *paths[], char *arg_cmd, char **env)
-{
-	int		i;
-	int		ret;
-	char	*command;
-	char	*path_to_exec;
-	char	**cmd_and_flags;
-
-	i = 0;
-	if (paths == NULL)
-		printf("error");
-	cmd_and_flags = ft_split(arg_cmd, ' ')	;
-	command = ft_strjoin("/", cmd_and_flags[0]);
-
-	while(paths[i] != NULL)
-	{
-		path_to_exec = ft_strjoin(paths[i], command);
-		if (path_to_exec == NULL)
-			printf("error");
-		if (access(path_to_exec, F_OK) == 0)
-		{
-			ret = execve(path_to_exec, cmd_and_flags, env);
-			if (ret == -1)
-				perror("error execve");
-		}
-		else
-			free (path_to_exec);
-		i++;
-	}
-	free (command);
-	free (cmd_and_flags);
-	return (ret);
-}
 
 int main (int argc, char *argv[], char *env[])
 {
@@ -105,19 +52,18 @@ int main (int argc, char *argv[], char *env[])
 	int		outfile_fd;
 	int		pipefd1[2];
 	int		pipefd2[2];
-	int		lastchildfd[2];
-	ssize_t	bytes_read;
 	char	*infile;
 	char	*outfile;
 	char	**paths; // will need free
-	char	buffer[1024];
 	pid_t	pid;
 
 	paths = extract_env(env);
 
-	if (argc < 4 || empty_str_in_argv(argv)) {
+	if (argc < 4 || empty_str_in_argv(argv)) 
+	{
 		printf("No empty strings\n");
-		return (0); }
+		return (0);
+	}
 	infile = argv[1];
 	outfile = argv[argc - 1];
 
@@ -126,11 +72,9 @@ int main (int argc, char *argv[], char *env[])
 
 	i = 0;
 	maxchildren = argc - 4;
-	/* pipe(pipefd2); */
 	pipe(pipefd1);
 	pipe(pipefd2);
 
-	printf("maxchilldren: %d\n", maxchildren);
 	while (i <= maxchildren)
 	{
 		pid = fork();
@@ -140,7 +84,7 @@ int main (int argc, char *argv[], char *env[])
 		}
 
 		if (pid == -1)
-			return (printf("error"), 1); //TODO: Actual error handling
+			return (perror("pid:"), 1); //TODO: Actual error handling
 		if (access(infile, R_OK) == -1)
 			perror("smeerpijp, infile failed"); // TODO: Free everyting
 
@@ -198,8 +142,6 @@ int main (int argc, char *argv[], char *env[])
 			perror("execve");
 			exit(EXIT_FAILURE);
 		}
-		else if (pid == -1)
-			perror("pid:");
 		else if (pid > 0)
 		{
 		printf("back to parent\n");
