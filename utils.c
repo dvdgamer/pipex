@@ -43,3 +43,22 @@ bool	empty_str_in_argv(char **argv)
 	}
 	return (false);
 }
+
+void	ft_close(int fd)
+{
+	if (close(fd) == -1)
+		perror("error closing\n");
+}
+
+void	free_paths(char **paths)
+{
+	int		i;
+
+	i = -1;
+	if (paths != NULL)
+	{
+		while (paths[++i] != NULL)
+			free(paths[i]);
+		free(paths);
+	}
+}

@@ -20,12 +20,12 @@ int	main(int argc, char *argv[], char *env[])
 
 	paths = extract_env(env);
 	if (argc < 4 || empty_str_in_argv(argv))
-		return (perror("No empty strings!"), free(paths), 1);
+		return (perror("No empty strings!"), free_paths(paths), 1);
 	infile = argv[1];
 	outfile = argv[argc - 1];
 	if (access(infile, F_OK) == -1)
 		return (perror("infile"), 1);
 	main_loop(argc, argv, env, paths);
-	free(paths);
+	free_paths(paths);
 	return (0);
 }
