@@ -103,18 +103,28 @@ int main (int argc, char *argv[], char *env[])
 		}
 		else if (pid == 0 && i == maxchildren) // Last child
 		{
-			printf("last child\n");
-			close(pipefd2[1]);
-			close(pipefd1[1]);
+			printf("Closing pipe if middle child: pipefd1[0]: %d, pipefd1[1]: %d, pipefd2[0]: %d, pipefd2[1]: %d\n", 
+		  pipefd1[0], pipefd1[1], pipefd2[0], pipefd2[1]);
+			ft_close(pipefd1[1]);
+			ft_close(pipefd2[1]);
 			if (i % 2 == 0)
-				dup2(pipefd2[0], STDIN_FILENO);
+			{
+				if(dup2(pipefd2[0], STDIN_FILENO) == -1)
+					perror("dup2 error");
+			}
 			else
-				dup2(pipefd1[0], STDIN_FILENO);
-			outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY);
+		{
+				if(dup2(pipefd1[0], STDIN_FILENO) == -1)
+					perror("dup2 error");
+			}
+			outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0666);
+			if (outfile_fd == -1)
+				return (perror("outfile_fd:"), -1);
 			dup2(outfile_fd, STDOUT_FILENO);
-			close(pipefd2[0]);
-			close(pipefd1[0]);
-			close(outfile_fd);
+			printf("will close2\n");
+			ft_close(pipefd1[0]);
+			ft_close(pipefd2[0]);
+			ft_close(outfile_fd);
 			execute_cmd(paths, argv[2 + i], env);
 		}
 		else if (pid == 0 && i > 0 && i < maxchildren) // Middle children
@@ -145,10 +155,11 @@ int main (int argc, char *argv[], char *env[])
 		else if (pid > 0)
 		{
 		printf("back to parent\n");
-		if (i % 2 == 0)
-			close(pipefd1[1]);
-		else if (i % 2 != 0)
-			close(pipefd2[1]);
+		printf("Closing pipe in parent: i: %d, pipefd1[1]: %d, pipefd2[1]: %d\n", i, pipefd1[1], pipefd2[1]);
+	if (i % 2 == 0)
+		ft_close(pipefd1[1]);
+	if (i % 2 != 0)
+		ft_close(pipefd1[0]);
 	}
 		i++;
 	}

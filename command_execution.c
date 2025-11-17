@@ -46,15 +46,3 @@ int	execute_cmd(char *paths[], char *arg_cmd, char **env)
 	return (ret);
 }
 
-void	free_paths(char **paths)
-{
-	int		i;
-
-	i = -1;
-	if (paths != NULL)
-	{
-		while (paths[++i] != NULL)
-			free(paths[i]);
-		free(paths);
-	}
-}
