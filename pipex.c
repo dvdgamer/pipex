@@ -112,8 +112,8 @@ int main (int argc, char *argv[], char *env[])
 				if(dup2(pipefd2[0], STDIN_FILENO) == -1)
 					perror("dup2 error");
 			}
-			else
-		{
+			else 
+			{
 				if(dup2(pipefd1[0], STDIN_FILENO) == -1)
 					perror("dup2 error");
 			}
