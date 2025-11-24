@@ -15,14 +15,13 @@
 int	first_child(int (*pipefd1)[2], char *infile)
 {
 	int	infile_fd;
-
-	close(*pipefd1[0]);
-	close(*pipefd1[0]);
-	if ((infile_fd = open(infile, R_OK)) == -1)
-		return (perror("error opening infile: "), -1);
+	/* close the read end of the pipe (keep write end open for stdout) */
+	close((*pipefd1)[0]);
+	if ((infile_fd = open(infile, O_RDONLY)) == -1)
+		return (perror("error opening infile "), -1);
 	dup2(infile_fd, STDIN_FILENO);
-	dup2(*pipefd1[1], STDOUT_FILENO);
-	close(*pipefd1[1]);
+	dup2((*pipefd1)[1], STDOUT_FILENO);
+	close((*pipefd1)[1]);
 	close(infile_fd);
 	return (0);
 
@@ -33,23 +32,27 @@ int	middle_children(int (*pipefd1)[2], int (*pipefd2)[2], int i)
 	printf("middle child\n");
 	if (i % 2 != 0)
 	{
-		close(*pipefd1[1]);
-		close(*pipefd2[0]);
-		if (dup2(*pipefd1[0], STDIN_FILENO) == -1)
+		close((*pipefd1)[1]);
+		close((*pipefd2)[0]);
+		printf("test1\n");
+		if (dup2((*pipefd1)[0], STDIN_FILENO) == -1)
 			perror("dup2 error");
-		if(dup2(*pipefd2[1], STDOUT_FILENO) == -1);
+		printf("test2\n");
+		if(dup2((*pipefd2)[1], STDOUT_FILENO) == -1)
 			perror("dup2 error");
-		close(*pipefd1[0]);
-		close(*pipefd2[1]);
+		close((*pipefd1)[0]);
+		close((*pipefd2)[1]);
 	}
 	if (i % 2 == 0)
 	{
-		close(*pipefd2[1]);
-		close(*pipefd1[0]);
-		dup2(*pipefd2[0], STDIN_FILENO);
-		dup2(*pipefd1[1], STDOUT_FILENO);
-		close(*pipefd2[0]);
-		close(*pipefd1[1]);
+		close((*pipefd2)[1]);
+		close((*pipefd1)[0]);
+		printf("test3\n");
+		dup2((*pipefd2)[0], STDIN_FILENO);
+		printf("test4\n");
+		dup2((*pipefd1)[1], STDOUT_FILENO);
+		close((*pipefd2)[0]);
+		close((*pipefd1)[1]);
 	}
 	return (0);
 }
@@ -58,39 +61,38 @@ int	last_child(int (*pipefd1)[2], int (*pipefd2)[2], char *outfile, int i)
 {
 	int		outfile_fd;
 
-	printf("will close1\n");
-	printf("Closing pipe if middle child: pipefd1[0]: %d, pipefd1[1]: %d, pipefd2[0]: %d, pipefd2[1]: %d\n", 
-       *pipefd1[0], *pipefd1[1], *pipefd2[0], *pipefd2[1]);
-	close(*pipefd1[1]);
-	close(*pipefd2[1]);
+	printf("will close\n");
+	close((*pipefd1)[1]);
+	close((*pipefd2)[1]);
 	if (i % 2 == 0)
 	{
-		if(dup2(*pipefd2[0], STDIN_FILENO) == -1)
+		if(dup2((*pipefd2)[0], STDIN_FILENO) == -1)
 			perror("dup2 error");
 	}
 	else
 	{
-		if(dup2(*pipefd1[0], STDIN_FILENO) == -1)
+		if(dup2((*pipefd1)[0], STDIN_FILENO) == -1)
 			perror("dup2 error");
 	}
 	outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (outfile_fd == -1)
 		return (perror("outfile_fd:"), -1);
+	printf("test5\n");
 	dup2(outfile_fd, STDOUT_FILENO);
 	printf("will close2\n");
-	close(*pipefd1[0]);
-	close(*pipefd2[0]);
+	close((*pipefd1)[0]);
+	close((*pipefd2)[0]);
 	close(outfile_fd);
 	return (0);
 }
 
 void	back_to_parent(int i, int (*pipefd1)[2], int (*pipefd2)[2])
 {
-	printf("Closing pipe in parent: i: %d, pipefd1[1]: %d, pipefd2[1]: %d\n", i, *pipefd1[1], *pipefd2[1]);
+	printf("Closing pipe in parent: i: %d, pipefd1[1]: %d, pipefd2[1]: %d\n", i, (*pipefd1)[1], (*pipefd2)[1]);
 	if (i % 2 == 0)
-		close(*pipefd1[1]);
+		close((*pipefd1)[1]);
 	if (i % 2 != 0)
-		close(*pipefd1[0]);
+		close((*pipefd1)[0]);
 }
 
 void	wait_for_children_close_open_pipes(int i, int (*pipefd1)[2], int (*pipefd2)[2])
@@ -100,10 +102,10 @@ void	wait_for_children_close_open_pipes(int i, int (*pipefd1)[2], int (*pipefd2)
 		wait(0);
 		i--;
 	}
-	if (*pipefd1[0] != -1)
-		close(*pipefd1[0]);
-	if (*pipefd2[0] != -1)
-		close(*pipefd2[0]);
+	if ((*pipefd1)[0] != -1)
+		close((*pipefd1)[0]);
+	if ((*pipefd2)[0] != -1)
+		close((*pipefd2)[0]);
 }
 
 int	main_loop(int argc, char *argv[], char *env[], char *paths[])
@@ -117,7 +119,7 @@ int	main_loop(int argc, char *argv[], char *env[], char *paths[])
 	i = 0;
 	maxchildren = argc - 4;
 	if ((pipe(pipefd1) == -1) || (pipe(pipefd2) == -1)) 
-		return (perror("pipe creation:"), -1);
+		return (perror("pipe creation"), -1);
 	while (i <= maxchildren)
 	{
 		pid = fork();
@@ -131,7 +133,6 @@ int	main_loop(int argc, char *argv[], char *env[], char *paths[])
 		}
 		if (pid == 0 && i == maxchildren) // Last child
 		{
-			printf("last child in main loop: i: %d, pipefd1[1]: %d, pipefd2[1]: %d\n", i, pipefd1[1], pipefd2[1]);
 			last_child(&pipefd1, &pipefd2, argv[argc - 1], i);
 			execute_cmd(paths, argv[2 + i], env);
 			return (perror("execve"), -1);
