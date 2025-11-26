@@ -6,11 +6,29 @@
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2025/11/12 16:21:51 by dponte       #+#    #+#                  */
-/*   Updated: 2025/11/12 16:22:07 by dponte       ########   odam.nl          */
+/*   Updated: 2025/11/12 16:21:51 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+// Find the PATH entry in the environment and split it into an array of
+// directories. Returns NULL if PATH is not found.
+char	**extract_env(char *env[])
+{
+	int	i;
+
+	if (env == NULL)
+		return (NULL);
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			return (ft_split(env[i] + 5, ':'));
+		i++;
+	}
+	return (NULL);
+}
 
 int	execute_cmd(char *paths[], char *arg_cmd, char **env)
 {
@@ -22,11 +40,10 @@ int	execute_cmd(char *paths[], char *arg_cmd, char **env)
 
 	i = 0;
 	if (paths == NULL)
-		printf("error");
-	cmd_and_flags = ft_split(arg_cmd, ' ')	;
+		perror("no paths");
+	cmd_and_flags = ft_split(arg_cmd, ' ');
 	command = ft_strjoin("/", cmd_and_flags[0]);
-
-	while(paths[i] != NULL)
+	while (paths[i] != NULL)
 	{
 		path_to_exec = ft_strjoin(paths[i], command);
 		if (path_to_exec == NULL)
@@ -45,4 +62,3 @@ int	execute_cmd(char *paths[], char *arg_cmd, char **env)
 	free (cmd_and_flags);
 	return (ret);
 }
-

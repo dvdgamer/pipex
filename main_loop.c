@@ -11,13 +11,15 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <unistd.h>
 
 int	first_child(int pipefd1[2], char *infile)
 {
 	int	infile_fd;
 
 	close(pipefd1[0]);
-	if ((infile_fd = open(infile, O_RDONLY)) == -1)
+	infile_fd = open(infile, O_RDONLY);
+	if (infile_fd  == -1)
 		return (perror("error opening infile "), close(pipefd1[1]), -1);
 	dup2(infile_fd, STDIN_FILENO);
 	dup2(pipefd1[1], STDOUT_FILENO);
@@ -119,6 +121,8 @@ int	main_loop(int argc, char *argv[], char *env[], char *paths[])
 		{
 			first_child(pipefd1, argv[1]);
 			execute_cmd(paths, argv[2], env);
+			close(pipefd2[0]);
+			close(pipefd2[1]);
 			return (perror("execve"), -1);
 		}
 		if (pid == 0 && i == maxchildren)
@@ -130,7 +134,6 @@ int	main_loop(int argc, char *argv[], char *env[], char *paths[])
 		else if (pid == 0)
 		{
 			middle_children(pipefd1, pipefd2, i);
-			printf("doesnt get here\n");
 			execute_cmd(paths, argv[2 + i], env);
 			return (perror("execve"), -1);
 		}

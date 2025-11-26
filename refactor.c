@@ -25,7 +25,8 @@ int	main(int argc, char *argv[], char *env[])
 	outfile = argv[argc - 1];
 	if (access(infile, F_OK) == -1)
 		return (perror("infile"), 1);
-	main_loop(argc, argv, env, paths);
+	if (main_loop(argc, argv, env, paths) == -1)
+		return (perror("main function"), -1);
 	free_paths(paths);
 	return (0);
 }
