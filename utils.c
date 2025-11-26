@@ -26,10 +26,22 @@ bool	empty_str_in_argv(char **argv)
 	return (false);
 }
 
-void	ft_close(int fd)
+/*
+ * safe_close:
+ * - Closes a file descriptor referenced by pointer `fd` if it is valid.
+ * - If `fd` is NULL or *fd < 0 the function returns without calling close.
+ * - After attempting close the function writes -1 into *fd to mark it
+ *   as closed, preventing accidental double-closes.
+ */
+void	safe_close(int *fd)
 {
-	if (close(fd) == -1)
-		perror("error closing\n");
+	if (fd == NULL)
+		return ;
+	if (*fd < 0)
+		return ;
+	if (close(*fd) == -1)
+		perror("safe close: error closing fd");
+	*fd = -1;
 }
 
 void	free_paths(char **paths)
