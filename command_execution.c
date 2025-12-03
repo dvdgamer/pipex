@@ -54,11 +54,10 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 
 	if (paths == NULL)
 		return (perror("execute_cmd: paths is NULL"), -1);
-	// TODO: empty string: ignore and still go trough with the other instructions
-	if (only_white_space(arg_cmd))
+	if (only_white_space(arg_cmd) == 1)
 		return (1);
 	cmd_and_flags = ft_split(arg_cmd, ' ');
-	if (cmd_and_flags == NULL || cmd_and_flags[0] == NULL)
+	if (cmd_and_flags == NULL)
 	{
 		perror("execute_cmd: ft_split failed");
 		return (-1);

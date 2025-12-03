@@ -93,21 +93,21 @@ static int	handle_children(t_pipex *pipex, int i, char **argv, char **env)
 		safe_close(&pipex->pipefd2[1]);
 		if (first_child(pipex->pipefd1, argv[1]) == -1)
 			perror(argv[1]);
-		execute_cmd(pipex->paths, argv[2], env);
-		return (-1);
+		if (execute_cmd(pipex->paths, argv[2], env) == -1)
+			return (-1);
 	}
-	if (i == pipex->maxchildren)
+	else if (i == pipex->maxchildren)
 	{
 		last_child(pipex->pipefd1, pipex->pipefd2,
 			argv[pipex->maxchildren + 3], i);
-		execute_cmd(pipex->paths, argv[2 + i], env);
-		return (-1);
+		if (execute_cmd(pipex->paths, argv[2 + i], env) == -1)
+			return (-1);
 	}
 	else
 	{
 		middle_children(pipex->pipefd1, pipex->pipefd2, i);
-		execute_cmd(pipex->paths, argv[2 + i], env);
-		return (-1);
+		if (execute_cmd(pipex->paths, argv[2 + i], env) == -1)
+			return (-1);
 	}
 	return (0);
 }
@@ -120,6 +120,7 @@ int	main_loop(int argc, char **argv, char **env, char **paths)
 
 	pipex.paths = paths;
 	pipex.maxchildren = argc - 4;
+	// FIX: It loses the previous pipe info if the command is only whitespace
 	if (create_pipes(pipex.pipefd1, pipex.pipefd2) == -1)
 		return (-1);
 	i = 0;
