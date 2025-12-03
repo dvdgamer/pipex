@@ -12,20 +12,16 @@
 
 #include "pipex.h"
 
-char	**extract_env(char *env[])
+static int only_white_space(char *str)
 {
 	int	i;
 
-	if (env == NULL)
-		return (NULL);
 	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			return (ft_split(env[i] + 5, ':'));
+	while (ft_isspace(str[i]))
 		i++;
-	}
-	return (NULL);
+	if (str[i] == '\0')
+		return (1);
+	return (0);
 }
 
 static int	try_exec_paths(char **paths, char *command,
@@ -58,6 +54,9 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 
 	if (paths == NULL)
 		return (perror("execute_cmd: paths is NULL"), -1);
+	// TODO: empty string: ignore and still go trough with the other instructions
+	if (only_white_space(arg_cmd))
+		return (1);
 	cmd_and_flags = ft_split(arg_cmd, ' ');
 	if (cmd_and_flags == NULL || cmd_and_flags[0] == NULL)
 	{

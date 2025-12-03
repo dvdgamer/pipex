@@ -20,7 +20,7 @@ static int	first_child(int pipefd1[2], char *infile)
 	infile_fd = open(infile, O_RDONLY);
 	if (infile_fd == -1)
 	{
-		perror("error opening infile ");
+		strerror(errno);
 		safe_close(&pipefd1[1]);
 		return (-1);
 	}
@@ -89,27 +89,25 @@ static int	handle_children(t_pipex *pipex, int i, char **argv, char **env)
 {
 	if (i == 0)
 	{
-		printf("first child\n");
-		first_child(pipex->pipefd1, argv[1]);
-		execute_cmd(pipex->paths, argv[2], env);
 		safe_close(&pipex->pipefd2[0]);
 		safe_close(&pipex->pipefd2[1]);
-		return (perror("execve"), -1);
+		if (first_child(pipex->pipefd1, argv[1]) == -1)
+			perror(argv[1]);
+		execute_cmd(pipex->paths, argv[2], env);
+		return (-1);
 	}
 	if (i == pipex->maxchildren)
 	{
-		printf("last child\n");
 		last_child(pipex->pipefd1, pipex->pipefd2,
 			argv[pipex->maxchildren + 3], i);
 		execute_cmd(pipex->paths, argv[2 + i], env);
-		return (perror("execve"), -1);
+		return (-1);
 	}
 	else
 	{
-		printf("middle child\n");
 		middle_children(pipex->pipefd1, pipex->pipefd2, i);
 		execute_cmd(pipex->paths, argv[2 + i], env);
-		return (perror("execve"), -1);
+		return (-1);
 	}
 	return (0);
 }
@@ -133,7 +131,7 @@ int	main_loop(int argc, char **argv, char **env, char **paths)
 		if (pid == 0)
 		{
 			if (handle_children(&pipex, i, argv, env) == -1)
-				return (perror("main_loop: handle_children"), -1);
+				return (strerror(errno), -1);
 		}
 		else if (pid > 0)
 			back_to_parent(i, pipex.pipefd1, pipex.pipefd2);
