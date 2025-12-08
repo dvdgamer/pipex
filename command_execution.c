@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "pipex.h"
+
+static void	free_command_and_flags(char *command, char **cmd_and_flags)
+{
+	free(command);
+	free_paths(cmd_and_flags);
+}
 
 static int	only_white_space(char *str)
 {
@@ -44,7 +51,9 @@ static int	try_exec_paths(char **paths, char *command,
 		free (path_to_exec);
 		i++;
 	}
-	return (1);
+	ft_putstr_fd("command not found :", STDERR_FILENO);
+	ft_putendl_fd(cmd_and_flags[0], STDERR_FILENO);
+	return (127);
 }
 
 int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
@@ -57,11 +66,8 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 	if (only_white_space(arg_cmd) == 1)
 		arg_cmd = "cat";
 	cmd_and_flags = ft_split(arg_cmd, ' ');
-	if (cmd_and_flags == NULL)
-	{
-		perror("execute_cmd: ft_split failed");
-		return (-1);
-	}
+	if (cmd_and_flags == NULL) 
+		return (perror("execute_cmd: ft_split failed"), -1);
 	command = ft_strjoin("/", cmd_and_flags[0]);
 	if (command == NULL)
 	{
@@ -69,9 +75,10 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 		perror("execute_cmd: strjoin failed");
 		return (-1);
 	}
-	if (try_exec_paths(paths, command, cmd_and_flags, env) == 1)
-		return (-1);
-	free(command);
-	free_paths(cmd_and_flags);
-	return (-1);
+	if (try_exec_paths(paths, command, cmd_and_flags, env) == 127)
+	{
+		free_command_and_flags(command, cmd_and_flags);
+		exit(127);
+	}
+	return (free_command_and_flags(command, cmd_and_flags), -1);
 }

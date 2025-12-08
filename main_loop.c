@@ -95,21 +95,18 @@ static int	handle_children(t_pipex *pipex, int i, char **argv, char **env)
 		safe_close(&pipex->pipefd2[1]);
 		if (first_child(pipex->pipefd1, argv[1]) == -1)
 			perror(argv[1]);
-		if (execute_cmd(pipex->paths, argv[2], env) == -1)
-			return (-1);
+		execute_cmd(pipex->paths, argv[2], env);
 	}
 	else if (i == pipex->maxchildren)
 	{
 		last_child(pipex->pipefd1, pipex->pipefd2,
 			argv[pipex->maxchildren + 3], i);
-		if (execute_cmd(pipex->paths, argv[2 + i], env) == -1)
-			return (-1);
+		execute_cmd(pipex->paths, argv[2 + i], env);
 	}
 	else
 	{
 		middle_children(pipex->pipefd1, pipex->pipefd2, i);
-		if (execute_cmd(pipex->paths, argv[2 + i], env) == -1)
-			return (-1);
+		execute_cmd(pipex->paths, argv[2 + i], env);
 	}
 	return (0);
 }
