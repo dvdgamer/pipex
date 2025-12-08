@@ -21,7 +21,6 @@ static int	first_child(int pipefd1[2], char *infile)
 	if (infile_fd == -1)
 	{
 		strerror(errno);
-		perror("first child");
 		safe_close(&pipefd1[1]);
 		return (-1);
 	}
@@ -49,8 +48,10 @@ static int	middle_children(int pipefd1[2], int pipefd2[2], int i)
 	{
 		safe_close(&pipefd2[1]);
 		safe_close(&pipefd1[0]);
-		dup2(pipefd2[0], STDIN_FILENO);
-		dup2(pipefd1[1], STDOUT_FILENO);
+		if (dup2(pipefd2[0], STDIN_FILENO) == -1)
+			strerror(errno);
+		if (dup2(pipefd1[1], STDOUT_FILENO) == -1)
+			strerror(errno);
 		safe_close(&pipefd2[0]);
 		safe_close(&pipefd1[1]);
 	}
@@ -76,7 +77,7 @@ static int	last_child(int pipefd1[2], int pipefd2[2], char *outfile, int i)
 	outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (outfile_fd == -1)
 	{
-		perror("outfile_fd:");
+		perror(outfile);
 		return (-1);
 	}
 	dup2(outfile_fd, STDOUT_FILENO);

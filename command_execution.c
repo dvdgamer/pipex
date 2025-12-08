@@ -70,7 +70,7 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 		return (-1);
 	}
 	if (try_exec_paths(paths, command, cmd_and_flags, env) == 1)
-		return (perror("execute_cmd: command not found"), -1);
+		return (-1);
 	free(command);
 	free_paths(cmd_and_flags);
 	return (-1);

@@ -42,7 +42,7 @@ void	wait_children_close_open_pipes(int i,
 {
 	while (i >= 0)
 	{
-		wait(0);
+		waitpid(0, 0, 0);
 		i--;
 	}
 	safe_close(&pipefd1[0]);
