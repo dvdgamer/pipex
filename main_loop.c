@@ -21,6 +21,7 @@ static int	first_child(int pipefd1[2], char *infile)
 	if (infile_fd == -1)
 	{
 		strerror(errno);
+		perror("first child");
 		safe_close(&pipefd1[1]);
 		return (-1);
 	}
@@ -38,9 +39,9 @@ static int	middle_children(int pipefd1[2], int pipefd2[2], int i)
 		safe_close(&pipefd1[1]);
 		safe_close(&pipefd2[0]);
 		if (dup2(pipefd1[0], STDIN_FILENO) == -1)
-			perror("dup2 error");
+			strerror(errno);
 		if (dup2(pipefd2[1], STDOUT_FILENO) == -1)
-			perror("dup2 error");
+			strerror(errno);
 		safe_close(&pipefd1[0]);
 		safe_close(&pipefd2[1]);
 	}
@@ -65,12 +66,12 @@ static int	last_child(int pipefd1[2], int pipefd2[2], char *outfile, int i)
 	if (i % 2 == 0)
 	{
 		if (dup2(pipefd2[0], STDIN_FILENO) == -1)
-			perror("dup2 error");
+			strerror(errno);
 	}
 	else
 	{
 		if (dup2(pipefd1[0], STDIN_FILENO) == -1)
-			perror("dup2 error");
+			strerror(errno);
 	}
 	outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (outfile_fd == -1)
@@ -120,9 +121,8 @@ int	main_loop(int argc, char **argv, char **env, char **paths)
 
 	pipex.paths = paths;
 	pipex.maxchildren = argc - 4;
-	// FIX: It loses the previous pipe info if the command is only whitespace
 	if (create_pipes(pipex.pipefd1, pipex.pipefd2) == -1)
-		return (-1);
+		return (strerror(errno), -1);
 	i = 0;
 	while (i <= pipex.maxchildren)
 	{

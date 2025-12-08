@@ -1,510 +1,100 @@
-70290 execve("/usr/bin/bash", ["bash", "-c", "./pipex \"infile\" \"cat\" \"grep h\" "...], 0x7fff3e609b68 /* 74 vars */) = 0
-70290 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libtinfo.so.6", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70290 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 execve("./pipex", ["./pipex", "infile", "cat", "grep h", "grep e", "grep l", " ", "outfile"], 0x56121caec250 /* 74 vars */) = 0
-70290 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
-70290 close(3)                          = 0
-70290 pipe2([3, 4], 0)                  = 0
-70290 pipe2([5, 6], 0)                  = 0
-70290 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f6eca8d6a10) = 70291
-70290 close(4)                          = 0
-70290 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f6eca8d6a10) = 70292
-70290 close(6)                          = 0
-70290 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f6eca8d6a10) = 70293
-70291 close(5 <unfinished ...>
-70292 close(5 <unfinished ...>
-70291 <... close resumed>)              = 0
-70292 <... close resumed>)              = 0
-70293 close(3 <unfinished ...>
-70291 close(6 <unfinished ...>
-70292 dup2(3, 0 <unfinished ...>
-70291 <... close resumed>)              = 0
-70293 <... close resumed>)              = 0
-70292 <... dup2 resumed>)               = 0
-70291 close(3 <unfinished ...>
-70293 dup2(5, 0 <unfinished ...>
-70291 <... close resumed>)              = 0
-70290 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD <unfinished ...>
-70293 <... dup2 resumed>)               = 0
-70292 dup2(6, 1)                        = 1
-70291 openat(AT_FDCWD, "infile", O_RDONLY <unfinished ...>
-70293 dup2(-1, 1 <unfinished ...>
-70292 close(3 <unfinished ...>
-70290 <... clone resumed>, child_tidptr=0x7f6eca8d6a10) = 70294
-70293 <... dup2 resumed>)               = -1 EBADF (Bad file descriptor)
-70292 <... close resumed>)              = 0
-70291 <... openat resumed>)             = 3
-70290 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD <unfinished ...>
-70293 close(5 <unfinished ...>
-70292 close(6 <unfinished ...>
-70291 dup2(3, 0 <unfinished ...>
-70294 close(5 <unfinished ...>
-70293 <... close resumed>)              = 0
-70292 <... close resumed>)              = 0
-70294 <... close resumed>)              = 0
-70291 <... dup2 resumed>)               = 0
-70290 <... clone resumed>, child_tidptr=0x7f6eca8d6a10) = 70295
-70294 dup2(3, 0 <unfinished ...>
-70291 dup2(4, 1 <unfinished ...>
-70294 <... dup2 resumed>)               = 0
-70291 <... dup2 resumed>)               = 1
-70294 dup2(-1, 1 <unfinished ...>
-70291 close(4 <unfinished ...>
-70294 <... dup2 resumed>)               = -1 EBADF (Bad file descriptor)
-70291 <... close resumed>)              = 0
-70295 dup2(5, 0 <unfinished ...>
-70291 close(3)                          = 0
-70295 <... dup2 resumed>)               = 0
-70295 openat(AT_FDCWD, "outfile", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 4
-70294 write(4, "dup2 error: Bad file descriptor\n", 32 <unfinished ...>
-70295 dup2(4, 1 <unfinished ...>
-70294 <... write resumed>)              = 32
-70292 execve("/usr/bin/grep", ["grep", "h"], 0x7ffc198867d0 /* 74 vars */ <unfinished ...>
-70295 <... dup2 resumed>)               = 1
-70294 close(4 <unfinished ...>
-70293 execve("/usr/bin/grep", ["grep", "e"], 0x7ffc198867d0 /* 74 vars */ <unfinished ...>
-70295 close(3 <unfinished ...>
-70294 <... close resumed>)              = 0
-70295 <... close resumed>)              = 0
-70294 close(3 <unfinished ...>
-70295 close(5 <unfinished ...>
-70294 <... close resumed>)              = 0
-70295 <... close resumed>)              = 0
-70293 <... execve resumed>)             = 0
-70292 <... execve resumed>)             = 0
-70295 close(4)                          = 0
-70291 execve("/usr/bin/cat", ["cat"], 0x7ffc198867d0 /* 74 vars */ <unfinished ...>
-70293 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
-70291 <... execve resumed>)             = 0
-70294 execve("/usr/bin/grep", ["grep", "l"], 0x7ffc198867d0 /* 74 vars */ <unfinished ...>
-70292 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
-70295 +++ exited with 0 +++
-70292 <... openat resumed>)             = 3
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3
-70291 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
-70291 close(3 <unfinished ...>
-70294 <... execve resumed>)             = 0
-70291 <... close resumed>)              = 0
-70291 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
-70293 close(3)                          = 0
-70293 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
-70290 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=70295, si_uid=217836, si_status=0, si_utime=0, si_stime=0} ---
-70292 <... openat resumed>)             = 3
-70294 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
-70294 close(3)                          = 0
-70294 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3
-70291 close(3)                          = 0
-70293 close(3)                          = 0
-70293 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
-70294 close(3)                          = 0
-70294 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 close(3)                          = 0
-70294 <... openat resumed>)             = 3
-70293 close(3)                          = 0
-70291 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
-70294 close(3)                          = 0
-70291 close(3 <unfinished ...>
-70292 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... close resumed>)              = 0
-70292 <... openat resumed>)             = 3
-70291 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... openat resumed>)             = 3
-70292 <... openat resumed>)             = 3
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
-70291 close(3)                          = 0
-70292 close(3 <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... close resumed>)              = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
-70293 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
-70293 <... openat resumed>)             = 3
-70291 close(3)                          = 0
-70292 close(3 <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... close resumed>)              = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY <unfinished ...>
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 <... openat resumed>)             = 3
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
-70291 <... openat resumed>)             = 3
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
-70293 close(3 <unfinished ...>
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... close resumed>)              = 0
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
-70293 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 close(3 <unfinished ...>
-70292 close(3 <unfinished ...>
-70291 <... close resumed>)              = 0
-70293 <... openat resumed>)             = 3
-70292 <... close resumed>)              = 0
-70294 close(3 <unfinished ...>
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... close resumed>)              = 0
-70292 close(3)                          = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 close(3 <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... close resumed>)              = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... openat resumed>)             = 3
-70294 <... openat resumed>)             = 3
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
-70293 close(3)                          = 0
-70292 close(3 <unfinished ...>
-70291 close(3 <unfinished ...>
-70292 <... close resumed>)              = 0
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... close resumed>)              = 0
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 close(3 <unfinished ...>
-70293 <... openat resumed>)             = 3
-70292 <... openat resumed>)             = 3
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... close resumed>)              = 0
-70291 <... openat resumed>)             = 3
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
-70293 close(3 <unfinished ...>
-70292 close(3 <unfinished ...>
-70293 <... close resumed>)              = 0
-70292 <... close resumed>)              = 0
-70293 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY <unfinished ...>
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 close(3 <unfinished ...>
-70293 <... openat resumed>)             = 3
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 <... close resumed>)              = 0
-70294 close(3 <unfinished ...>
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... close resumed>)              = 0
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY <unfinished ...>
-70292 <... openat resumed>)             = 3
-70294 <... openat resumed>)             = 3
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 close(3 <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... close resumed>)              = 0
-70291 <... openat resumed>)             = 3
-70294 close(3 <unfinished ...>
-70292 close(3 <unfinished ...>
-70294 <... close resumed>)              = 0
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... close resumed>)              = 0
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 close(3 <unfinished ...>
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 <... openat resumed>)             = 3
-70292 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... openat resumed>)             = 3
-70294 <... openat resumed>)             = 3
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 close(3 <unfinished ...>
-70291 <... openat resumed>)             = 3
-70293 <... close resumed>)              = 0
-70294 close(3 <unfinished ...>
-70292 close(3 <unfinished ...>
-70294 <... close resumed>)              = 0
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 openat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/grep.mo", O_RDONLY <unfinished ...>
-70294 <... openat resumed>)             = 3
-70293 <... openat resumed>)             = 3
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 close(3 <unfinished ...>
-70292 openat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/grep.mo", O_RDONLY <unfinished ...>
-70291 <... close resumed>)              = 0
-70292 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 close(3 <unfinished ...>
-70293 close(3 <unfinished ...>
-70292 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY <unfinished ...>
-70294 <... close resumed>)              = 0
-70293 <... close resumed>)              = 0
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC <unfinished ...>
-70292 <... openat resumed>)             = 3
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... openat resumed>)             = 3
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... openat resumed>)             = 3
-70293 <... openat resumed>)             = 3
-70291 close(3 <unfinished ...>
-70294 close(3)                          = 0
-70291 <... close resumed>)              = 0
-70293 close(3 <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... close resumed>)              = 0
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 <... openat resumed>)             = 3
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = 3
-70291 <... openat resumed>)             = 3
-70294 close(3 <unfinished ...>
-70291 close(3 <unfinished ...>
-70294 <... close resumed>)              = 0
-70293 close(3 <unfinished ...>
-70291 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... close resumed>)              = 0
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... openat resumed>)             = 3
-70291 <... openat resumed>)             = 3
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
-70294 close(3 <unfinished ...>
-70292 close(3 <unfinished ...>
-70294 <... close resumed>)              = 0
-70291 close(3 <unfinished ...>
-70292 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 close(3 <unfinished ...>
-70291 <... close resumed>)              = 0
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... openat resumed>)             = 3
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 close(3 <unfinished ...>
-70293 <... openat resumed>)             = 3
-70294 <... close resumed>)              = 0
-70291 <... openat resumed>)             = 3
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
-70293 close(3)                          = 0
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
-70291 close(3 <unfinished ...>
-70294 close(3 <unfinished ...>
-70291 <... close resumed>)              = 0
-70294 <... close resumed>)              = 0
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 close(3 <unfinished ...>
-70294 <... openat resumed>)             = 3
-70293 <... close resumed>)              = 0
-70291 <... openat resumed>)             = 3
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 close(3 <unfinished ...>
-70293 <... openat resumed>)             = 3
-70294 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 close(3 <unfinished ...>
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... openat resumed>)             = 3
-70293 close(3 <unfinished ...>
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 <... close resumed>)              = 0
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 <... openat resumed>)             = 3
-70294 close(3 <unfinished ...>
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 <... close resumed>)              = 0
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = 3
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
-70291 close(3)                          = 0
-70293 close(3 <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... close resumed>)              = 0
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 close(3 <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... close resumed>)              = 0
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 <... openat resumed>)             = 3
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 <... openat resumed>)             = 3
-70293 <... openat resumed>)             = 3
-70294 close(3)                          = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 close(3 <unfinished ...>
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70291 <... close resumed>)              = 0
-70294 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 close(3 <unfinished ...>
-70294 <... openat resumed>)             = 3
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... close resumed>)              = 0
-70291 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70291 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC <unfinished ...>
-70293 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 close(3 <unfinished ...>
-70291 <... openat resumed>)             = 3
-70294 <... close resumed>)              = 0
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC <unfinished ...>
-70294 openat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/grep.mo", O_RDONLY <unfinished ...>
-70293 <... openat resumed>)             = 3
-70294 <... openat resumed>)             = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/grep.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
-70294 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY <unfinished ...>
-70291 close(3 <unfinished ...>
-70294 <... openat resumed>)             = 3
-70291 <... close resumed>)              = 0
-70293 close(3)                          = 0
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
-70293 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
-70293 close(3)                          = 0
-70293 openat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/grep.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
-70291 write(1, "helloooooooooooo\nhehe\nhiiii\nhoi\n"..., 78 <unfinished ...>
-70293 openat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/grep.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
-70291 <... write resumed>)              = 78
-70293 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY) = 3
-70291 close(0)                          = 0
-70294 close(3 <unfinished ...>
-70291 close(1)                          = 0
-70294 <... close resumed>)              = 0
-70291 close(2 <unfinished ...>
-70293 close(3 <unfinished ...>
-70291 <... close resumed>)              = 0
-70293 <... close resumed>)              = 0
-70291 +++ exited with 0 +++
-70290 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=70291, si_uid=217836, si_status=0, si_utime=0, si_stime=0} ---
-70294 write(1, "helloooooooooooo\nhehe but on lin"..., 36) = -1 EPIPE (Broken pipe)
-70294 --- SIGPIPE {si_signo=SIGPIPE, si_code=SI_USER, si_pid=70294, si_uid=217836} ---
-70294 +++ killed by SIGPIPE +++
-70290 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_KILLED, si_pid=70294, si_uid=217836, si_status=SIGPIPE, si_utime=0, si_stime=0} ---
-70292 close(1)                          = 0
-70293 close(1 <unfinished ...>
-70292 close(2)                          = 0
-70293 <... close resumed>)              = 0
-70293 close(2 <unfinished ...>
-70292 +++ exited with 1 +++
-70293 <... close resumed>)              = 0
-70290 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=70292, si_uid=217836, si_status=1, si_utime=0, si_stime=0} ---
-70293 +++ exited with 1 +++
-70290 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=70293, si_uid=217836, si_status=1, si_utime=0, si_stime=0} ---
-70290 close(3)                          = 0
-70290 close(5)                          = 0
-70290 +++ exited with 0 +++
+50532 execve("/usr/bin/bash", ["bash", "-c", "./pipex \"infile\" \"cat\" \"grep h\" "...], 0x7ffc7d7ef978 /* 77 vars */) = 0
+50532 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+50532 close(3)                          = 0
+50532 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libtinfo.so.6", O_RDONLY|O_CLOEXEC) = 3
+50532 close(3)                          = 0
+50532 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+50532 close(3)                          = 0
+50532 openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = 3
+50532 close(3)                          = 0
+50532 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+50532 close(3)                          = 0
+50532 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+50532 close(3)                          = 0
+50532 execve("./pipex", ["./pipex", "infile", "cat", "grep h", "jkl", "outfile"], 0x55ec3310c910 /* 77 vars */) = 0
+50532 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+50532 close(3)                          = 0
+50532 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+50532 close(3)                          = 0
+50532 pipe2([3, 4], 0)                  = 0
+50532 pipe2([5, 6], 0)                  = 0
+50532 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5edce4ba10) = 50538
+50532 close(4)                          = 0
+50532 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD <unfinished ...>
+50538 close(5 <unfinished ...>
+50539 close(5)                          = 0
+50539 dup2(3, 0)                        = 0
+50539 dup2(6, 1)                        = 1
+50539 close(3 <unfinished ...>
+50532 <... clone resumed>, child_tidptr=0x7f5edce4ba10) = 50539
+50539 <... close resumed>)              = 0
+50538 <... close resumed>)              = 0
+50532 close(6)                          = 0
+50532 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5edce4ba10) = 50543
+50538 close(6)                          = 0
+50538 close(3)                          = 0
+50538 openat(AT_FDCWD, "infile", O_RDONLY) = 3
+50543 dup2(5, 0)                        = 0
+50538 dup2(3, 0 <unfinished ...>
+50543 openat(AT_FDCWD, "outfile", O_WRONLY|O_CREAT|O_TRUNC, 0666 <unfinished ...>
+50538 <... dup2 resumed>)               = 0
+50538 dup2(4, 1 <unfinished ...>
+50543 <... openat resumed>)             = 4
+50538 <... dup2 resumed>)               = 1
+50543 dup2(4, 1 <unfinished ...>
+50538 close(4 <unfinished ...>
+50543 <... dup2 resumed>)               = 1
+50538 <... close resumed>)              = 0
+50543 close(3 <unfinished ...>
+50538 close(3 <unfinished ...>
+50543 <... close resumed>)              = 0
+50538 <... close resumed>)              = 0
+50543 close(5)                          = 0
+50543 close(4)                          = 0
+50539 close(6 <unfinished ...>
+50538 execve("/usr/bin/cat", ["cat"], 0x7ffcb02acd70 /* 77 vars */ <unfinished ...>
+50539 <... close resumed>)              = 0
+50538 <... execve resumed>)             = 0
+50538 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+50538 close(3)                          = 0
+50538 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+50539 execve("/usr/bin/grep", ["grep", "h"], 0x7ffcb02acd70 /* 77 vars */ <unfinished ...>
+50538 close(3 <unfinished ...>
+50539 <... execve resumed>)             = 0
+50538 <... close resumed>)              = 0
+50539 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+50539 close(3)                          = 0
+50539 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3
+50538 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+50538 close(3)                          = 0
+50538 write(1, "helloooooooooooo\nhehe\nhiiii\nhoi\n"..., 78) = 78
+50538 close(0)                          = 0
+50538 close(1)                          = 0
+50538 close(2)                          = 0
+50539 close(3)                          = 0
+50539 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+50538 +++ exited with 0 +++
+50532 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=50538, si_uid=217836, si_status=0, si_utime=0, si_stime=0} ---
+50543 write(3, "execute_cmd: command not found o"..., 88) = 88
+50543 close(3)                          = 0
+50543 +++ exited with 0 +++
+50532 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=50543, si_uid=217836, si_status=0, si_utime=0, si_stime=0} ---
+50539 close(3)                          = 0
+50539 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+50539 close(3)                          = 0
+50539 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+50539 close(3)                          = 0
+50539 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+50539 close(3)                          = 0
+50539 openat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/grep.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+50539 openat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/grep.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+50539 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY) = 3
+50539 close(3)                          = 0
+50539 write(1, "helloooooooooooo\nhehe\nhiiii\nhoi\n"..., 51) = 51
+50539 close(1)                          = 0
+50539 close(2)                          = 0
+50539 +++ exited with 0 +++
+50532 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=50539, si_uid=217836, si_status=0, si_utime=0, si_stime=0} ---
+50532 close(3)                          = 0
+50532 close(5)                          = 0
+50532 +++ exited with 0 +++

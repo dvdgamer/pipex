@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-static int only_white_space(char *str)
+static int	only_white_space(char *str)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ static int	try_exec_paths(char **paths, char *command,
 		free (path_to_exec);
 		i++;
 	}
-	return (-1);
+	return (1);
 }
 
 int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
@@ -55,7 +55,7 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 	if (paths == NULL)
 		return (perror("execute_cmd: paths is NULL"), -1);
 	if (only_white_space(arg_cmd) == 1)
-		return (1);
+		arg_cmd = "cat";
 	cmd_and_flags = ft_split(arg_cmd, ' ');
 	if (cmd_and_flags == NULL)
 	{
@@ -69,8 +69,8 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 		perror("execute_cmd: strjoin failed");
 		return (-1);
 	}
-	if (try_exec_paths(paths, command, cmd_and_flags, env) == -1)
-		perror("execute_cmd: command not found or all execve attempts failed");
+	if (try_exec_paths(paths, command, cmd_and_flags, env) == 1)
+		return (perror("execute_cmd: command not found"), -1);
 	free(command);
 	free_paths(cmd_and_flags);
 	return (-1);
