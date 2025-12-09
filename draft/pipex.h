@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <error.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -22,11 +23,22 @@
 #include <sys/types.h>
 #include "libft/libft.h"
 
+typedef struct _pipex
+{
+	int		maxchildren;
+	int		pipefd1[2];
+	int		pipefd2[2];
+	char	**paths;
+}	t_pipex;
+
 int		open_file(char *file);
 int		execute_cmd(char *paths[], char *arg_cmd, char **env);
 int		main_loop(int argc, char *argv[], char *env[], char *paths[]);
 char	**extract_env(char *env[]);
 bool	empty_str_in_argv(char **argv);
-void	ft_close(int fd);
+void	safe_close(int *fd);
 void	free_paths(char **paths);
-void	create_pipe(char **argv, char **env);
+int		create_pipes(int pipefd1[2], int pipefd2[2]);
+void	back_to_parent(int i, int pipefd1[2], int pipefd2[2]);
+void	wait_children_close_open_pipes(int i,
+			int pipefd1[2], int pipefd2[2]);

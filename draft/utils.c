@@ -6,7 +6,7 @@
 /*   By: dponte <dponte@student.codam.nl>            +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2025/10/08 13:17:15 by dponte       #+#    #+#                  */
-/*   Updated: 2025/11/12 16:20:30 by dponte       ########   odam.nl          */
+/*   Updated: 2025/12/02 15:17:06 by dponte       ########   odam.nl          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ bool	empty_str_in_argv(char **argv)
 	return (false);
 }
 
-void	ft_close(int fd)
+void	safe_close(int *fd)
 {
-	if (close(fd) == -1)
-		perror("error closing\n");
+	if (fd == NULL)
+		return ;
+	if (*fd < 0)
+		return ;
+	if (close(*fd) == -1)
+		perror("safe close: error closing fd");
+	*fd = -1;
 }
 
 void	free_paths(char **paths)
@@ -43,4 +48,20 @@ void	free_paths(char **paths)
 			free(paths[i]);
 		free(paths);
 	}
+}
+
+char	**extract_env(char *env[])
+{
+	int	i;
+
+	if (env == NULL)
+		return (NULL);
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			return (ft_split(env[i] + 5, ':'));
+		i++;
+	}
+	return (NULL);
 }
