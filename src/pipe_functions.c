@@ -42,15 +42,15 @@ int	wait_children_close_open_pipes(t_pipex *pipex, int i)
 	int	status;
 	int	last_status;
 
+	safe_close(&pipex->pipefd1[0]);
+	safe_close(&pipex->pipefd2[0]);
 	last_status = 0;
 	while (i >= 0)
 	{
 		waitpid(0, &status, 0);
-		if (i == 1)
+		if (i == 0)
 			last_status = WEXITSTATUS(status);
 		i--;
 	}
-	safe_close(&pipex->pipefd1[0]);
-	safe_close(&pipex->pipefd2[0]);
 	return (last_status);
 }

@@ -32,8 +32,6 @@ int	main(int argc, char *argv[], char *env[])
 		return (perror("extract_env"), 1);
 	infile = argv[1];
 	outfile = argv[argc - 1];
-	if (access(infile, F_OK) == -1)
-		return (perror("infile"), 1);
 	ret = main_loop(argc, argv, env, paths);
 	if (ret == -1)
 		strerror(errno);

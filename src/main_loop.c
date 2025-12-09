@@ -19,7 +19,11 @@ static void	first_child(int pipefd1[2], char *infile)
 	safe_close(&pipefd1[0]);
 	infile_fd = open(infile, O_RDONLY);
 	if (infile_fd == -1)
+	{
 		safe_close(&pipefd1[1]);
+		perror("No such file");
+		exit(0);
+	}
 	dup2(infile_fd, STDIN_FILENO);
 	dup2(pipefd1[1], STDOUT_FILENO);
 	safe_close(&pipefd1[1]);
