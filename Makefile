@@ -4,7 +4,7 @@ LIBFT = libft/libft.a
 CC    = cc
 FLAGS = -Wall -Wextra -Werror
 
-SRC   = $(shell find -name '*.c')
+SRC   = $(shell find . -maxdepth 1 -name '*.c')
 OBJS  = $(SRC:.c=.o)
 
 .PHONY: all clean fclean re
@@ -15,18 +15,18 @@ all: $(NAME)
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(LIBFT):
-	make -C libft
+	$(MAKE) -C libft
 
 $(NAME): $(LIBFT) $(OBJS)
 	cp $(LIBFT) $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
 clean:
-	rm -rf $(OBJS)
-	make -C libft clean
+	rm -f $(OBJS)
+	$(MAKE) -C libft clean
 
-fclean:
-	rm -rf $(NAME)
-	make -C libft fclean
+fclean: clean
+	rm -f $(NAME)
+	$(MAKE) -C libft fclean
 
 re: fclean all
