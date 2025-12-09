@@ -66,7 +66,7 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 	if (only_white_space(arg_cmd) == 1)
 		arg_cmd = "cat";
 	cmd_and_flags = ft_split(arg_cmd, ' ');
-	if (cmd_and_flags == NULL) 
+	if (cmd_and_flags == NULL)
 		return (perror("execute_cmd: ft_split failed"), -1);
 	command = ft_strjoin("/", cmd_and_flags[0]);
 	if (command == NULL)

@@ -14,6 +14,7 @@
 
 int	main(int argc, char *argv[], char *env[])
 {
+	int		ret;
 	char	*infile;
 	char	*outfile;
 	char	**paths;
@@ -25,8 +26,9 @@ int	main(int argc, char *argv[], char *env[])
 	outfile = argv[argc - 1];
 	if (access(infile, F_OK) == -1)
 		return (perror("infile"), 1);
-	if (main_loop(argc, argv, env, paths) == -1)
+	ret = main_loop(argc, argv, env, paths);
+	if (ret == -1)
 		strerror(errno);
 	free_paths(paths);
-	return (0);
+	return (ret);
 }
