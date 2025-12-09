@@ -12,26 +12,21 @@
 
 #include "pipex.h"
 
-static int	first_child(int pipefd1[2], char *infile)
+static void	first_child(int pipefd1[2], char *infile)
 {
 	int	infile_fd;
 
 	safe_close(&pipefd1[0]);
 	infile_fd = open(infile, O_RDONLY);
 	if (infile_fd == -1)
-	{
-		strerror(errno);
 		safe_close(&pipefd1[1]);
-		return (-1);
-	}
 	dup2(infile_fd, STDIN_FILENO);
 	dup2(pipefd1[1], STDOUT_FILENO);
 	safe_close(&pipefd1[1]);
 	safe_close(&infile_fd);
-	return (0);
 }
 
-static int	middle_children(int pipefd1[2], int pipefd2[2], int i)
+static void	middle_children(int pipefd1[2], int pipefd2[2], int i)
 {
 	if (i % 2 != 0)
 	{
@@ -55,10 +50,9 @@ static int	middle_children(int pipefd1[2], int pipefd2[2], int i)
 		safe_close(&pipefd2[0]);
 		safe_close(&pipefd1[1]);
 	}
-	return (0);
 }
 
-static int	last_child(int pipefd1[2], int pipefd2[2], char *outfile, int i)
+static void	last_child(int pipefd1[2], int pipefd2[2], char *outfile, int i)
 {
 	int		outfile_fd;
 
@@ -78,23 +72,20 @@ static int	last_child(int pipefd1[2], int pipefd2[2], char *outfile, int i)
 	if (outfile_fd == -1)
 	{
 		perror(outfile);
-		return (-1);
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
 	safe_close(&pipefd1[0]);
 	safe_close(&pipefd2[0]);
 	safe_close(&outfile_fd);
-	return (0);
 }
 
-static int	handle_children(t_pipex *pipex, int i, char **argv, char **env)
+static void	handle_children(t_pipex *pipex, int i, char **argv, char **env)
 {
 	if (i == 0)
 	{
 		safe_close(&pipex->pipefd2[0]);
 		safe_close(&pipex->pipefd2[1]);
-		if (first_child(pipex->pipefd1, argv[1]) == -1)
-			perror(argv[1]);
+		first_child(pipex->pipefd1, argv[1]);
 		execute_cmd(pipex->paths, argv[2], env);
 	}
 	else if (i == pipex->maxchildren)
@@ -108,7 +99,6 @@ static int	handle_children(t_pipex *pipex, int i, char **argv, char **env)
 		middle_children(pipex->pipefd1, pipex->pipefd2, i);
 		execute_cmd(pipex->paths, argv[2 + i], env);
 	}
-	return (0);
 }
 
 int	main_loop(int argc, char **argv, char **env, char **paths)
@@ -128,14 +118,14 @@ int	main_loop(int argc, char **argv, char **env, char **paths)
 		if (pid == -1)
 			return (perror("pid"), -1);
 		if (pid == 0)
-		{
-			if (handle_children(&pipex, i, argv, env) == -1)
-				return (strerror(errno), -1);
-		}
+			handle_children(&pipex, i, argv, env);
 		else if (pid > 0)
+		{
+			if (i == pipex.maxchildren)
+				pipex.last_pid = pid;
 			back_to_parent(i, pipex.pipefd1, pipex.pipefd2);
+		}
 		i++;
 	}
-	wait_children_close_open_pipes(i, pipex.pipefd1, pipex.pipefd2);
-	return (0);
+	return (wait_children_close_open_pipes(&pipex, i));
 }

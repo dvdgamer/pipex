@@ -52,7 +52,7 @@ void	free_paths(char **paths)
 
 char	**extract_env(char *env[])
 {
-	int	i;
+	int		i;
 
 	if (env == NULL)
 		return (NULL);

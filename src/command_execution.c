@@ -13,12 +13,6 @@
 #include "libft/libft.h"
 #include "pipex.h"
 
-static void	free_command_and_flags(char *command, char **cmd_and_flags)
-{
-	free(command);
-	free_paths(cmd_and_flags);
-}
-
 static int	only_white_space(char *str)
 {
 	int	i;
@@ -31,8 +25,8 @@ static int	only_white_space(char *str)
 	return (0);
 }
 
-static int	try_exec_paths(char **paths, char *command,
-				char **cmd_and_flags, char **env)
+static void	try_exec_paths(char **paths, char *command,
+					char **cmd_and_flags, char **env)
 {
 	int		i;
 	char	*path_to_exec;
@@ -44,16 +38,20 @@ static int	try_exec_paths(char **paths, char *command,
 		if (path_to_exec == NULL)
 		{
 			perror("execute_cmd: path allocation failed");
-			return (-1);
+			exit(0);
 		}
 		if (access(path_to_exec, F_OK) == 0)
+		{
 			execve(path_to_exec, cmd_and_flags, env);
+			perror("execve failed");
+			exit(0);
+		}
 		free (path_to_exec);
 		i++;
 	}
-	ft_putstr_fd("command not found :", STDERR_FILENO);
+	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putendl_fd(cmd_and_flags[0], STDERR_FILENO);
-	return (127);
+	exit(0);
 }
 
 int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
@@ -75,10 +73,6 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 		perror("execute_cmd: strjoin failed");
 		return (-1);
 	}
-	if (try_exec_paths(paths, command, cmd_and_flags, env) == 127)
-	{
-		free_command_and_flags(command, cmd_and_flags);
-		exit(127);
-	}
-	return (free_command_and_flags(command, cmd_and_flags), -1);
+	try_exec_paths(paths, command, cmd_and_flags, env);
+	return (-1);
 }

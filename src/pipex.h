@@ -29,6 +29,7 @@ typedef struct _pipex
 	int		pipefd1[2];
 	int		pipefd2[2];
 	char	**paths;
+	pid_t	last_pid;
 }	t_pipex;
 
 int		open_file(char *file);
@@ -40,5 +41,4 @@ void	safe_close(int *fd);
 void	free_paths(char **paths);
 int		create_pipes(int pipefd1[2], int pipefd2[2]);
 void	back_to_parent(int i, int pipefd1[2], int pipefd2[2]);
-void	wait_children_close_open_pipes(int i,
-			int pipefd1[2], int pipefd2[2]);
+int		wait_children_close_open_pipes(t_pipex *pipex, int i);

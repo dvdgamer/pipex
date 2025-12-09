@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -19,9 +20,16 @@ int	main(int argc, char *argv[], char *env[])
 	char	*outfile;
 	char	**paths;
 
+	if (argc < 4)
+	{
+		perror("Not enough arguments: ./program infile cmd1 cmd2 outfile");
+		return (1);
+	}
+	if (empty_str_in_argv(argv))
+		return (perror("No empty strings!"), 1);
 	paths = extract_env(env);
-	if (argc < 4 || empty_str_in_argv(argv))
-		return (perror("No empty strings!"), free_paths(paths), 1);
+	if (paths == NULL)
+		return (perror("extract_env"), 1);
 	infile = argv[1];
 	outfile = argv[argc - 1];
 	if (access(infile, F_OK) == -1)
