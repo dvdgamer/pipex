@@ -44,13 +44,14 @@ static void	try_exec_paths(char **paths, char *command,
 		{
 			execve(path_to_exec, cmd_and_flags, env);
 			perror("execve failed");
-			exit(127);
+			exit(0);
 		}
-		free(path_to_exec);
+		free (path_to_exec);
 		i++;
 	}
 	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putendl_fd(cmd_and_flags[0], STDERR_FILENO);
+	exit(0);
 }
 
 int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
@@ -73,8 +74,5 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 		return (-1);
 	}
 	try_exec_paths(paths, command, cmd_and_flags, env);
-	free_paths(cmd_and_flags);
-	free_paths(paths);
-	free(command);
-	exit(127);
+	return (-1);
 }

@@ -23,7 +23,7 @@ static void	first_child(char **paths, int pipefd1[2], char *infile)
 		perror(infile);
 		free_paths(paths);
 		safe_close(&pipefd1[1]);
-		exit(1);
+		exit(0);
 	}
 	dup2(infile_fd, STDIN_FILENO);
 	dup2(pipefd1[1], STDOUT_FILENO);
@@ -75,14 +75,13 @@ static void	last_child(int pipefd1[2], int pipefd2[2], char *outfile, int i)
 	}
 	outfile_fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (outfile_fd == -1)
-		perror(outfile);
-	else
 	{
-		dup2(outfile_fd, STDOUT_FILENO);
-		safe_close(&outfile_fd);
+		perror(outfile);
 	}
+	dup2(outfile_fd, STDOUT_FILENO);
 	safe_close(&pipefd1[0]);
 	safe_close(&pipefd2[0]);
+	safe_close(&outfile_fd);
 }
 
 static void	handle_children(t_pipex *pipex, int i, char **argv, char **env)
