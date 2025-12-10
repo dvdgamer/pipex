@@ -13,7 +13,7 @@
 #include "libft/libft.h"
 #include "pipex.h"
 
-static int	only_white_space(char *str)
+static int	ft_only_white_space(char *str)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ int	execute_cmd(char *paths[], char *arg_cmd, char *env[])
 
 	if (paths == NULL)
 		return (perror("execute_cmd: paths is NULL"), -1);
-	if (only_white_space(arg_cmd) == 1)
+	if (ft_only_white_space(arg_cmd) == 1)
 		arg_cmd = "cat";
 	cmd_and_flags = ft_split(arg_cmd, ' ');
 	if (cmd_and_flags == NULL)

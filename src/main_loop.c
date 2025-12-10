@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-static void	first_child(int pipefd1[2], char *infile)
+static void	first_child(char **paths, int pipefd1[2], char *infile)
 {
 	int	infile_fd;
 
@@ -20,8 +20,9 @@ static void	first_child(int pipefd1[2], char *infile)
 	infile_fd = open(infile, O_RDONLY);
 	if (infile_fd == -1)
 	{
+		perror(infile);
+		free_paths(paths);
 		safe_close(&pipefd1[1]);
-		perror("No such file");
 		exit(0);
 	}
 	dup2(infile_fd, STDIN_FILENO);
@@ -89,7 +90,7 @@ static void	handle_children(t_pipex *pipex, int i, char **argv, char **env)
 	{
 		safe_close(&pipex->pipefd2[0]);
 		safe_close(&pipex->pipefd2[1]);
-		first_child(pipex->pipefd1, argv[1]);
+		first_child(pipex->paths, pipex->pipefd1, argv[1]);
 		execute_cmd(pipex->paths, argv[2], env);
 	}
 	else if (i == pipex->maxchildren)
@@ -120,7 +121,7 @@ int	main_loop(int argc, char **argv, char **env, char **paths)
 	{
 		pid = fork();
 		if (pid == -1)
-			return (perror("pid"), -1);
+			return (perror("pid"), 0);
 		if (pid == 0)
 			handle_children(&pipex, i, argv, env);
 		else if (pid > 0)
